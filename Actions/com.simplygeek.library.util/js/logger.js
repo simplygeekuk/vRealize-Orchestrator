@@ -1,30 +1,32 @@
-/*
-Purpose:
-This action is used to provide consistent logging output for the calling actions/workflows.
-This allows greater visibility into what code is executing and where, which makes troubleshooting easier.
- 
-Parameters:
-– logType (string)
-– logName (string)
-– logLevel (string)
-– logMessage (Any)
- 
-Return Type : void
-*/
+/**
+ * This action creates a Logger object that can be used to standardise the log output in workflows.
+ * This provides greater visibility into what code is executing and where, which makes troubleshooting easier.
+ * @param {string} logType - The component type i.e. Action or Workflow.
+ * @param {string} logName - The Action or Workflow name.
+ * @returns {*} The Logger object.
+ */
 
-switch(logLevel) {
-    case "log":
-        System.log("[" + logType + ": " + logName + "]: " + logMessage);
-        break;
-    case "debug":
-        System.debug("[" + logType + ": " + logName + "]: " + logMessage);
-        break;
-    case "error":
-        System.error("[" + logType + ": " + logName + "]: " + logMessage);
-        break;
-    case "warn":
-        System.warn("[" + logType + ": " + logName + "]: " + logMessage);
-        break;
-    default:
-        System.log("[" + logType + ": " + logName + "]: " + logMessage);
+function Logger(logType, logName) {
+    this.type = logType; 
+    this.name = logName;
+    this.log = function (logMsg){		
+        System.log("[" + this.type + ": " + this.name + "] " + logMsg);
+    }
+    this.warn = function (warnMsg){		
+        System.warn("[" + this.type + ": " + this.name + "] " + warnMsg);
+    }
+    this.error = function (errMsg, exception){		
+        System.error("[" + this.type + ": " + this.name + "] " + errMsg);
+        if (exception) {
+            throw "[" + this.type + ": " + this.name + "] " + errMsg + " " + exception;
+        } else {
+            throw errMsg;
+        }
+    }
+    this.debug = function (debugMsg){		
+        System.debug("[" + this.type + ": " + this.name +"] " + debugMsg);
+    }
+
 }
+
+return Logger
