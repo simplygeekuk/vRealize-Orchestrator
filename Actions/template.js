@@ -3,6 +3,8 @@
 /**
  * This is an Action template that can be used as a starting point for creating
  * new Actions in vRealize Orchestrator.
+ * @author Jane Smith <jsmith@example.com>
+ * @version 0.0.0
  * @function actionName
  * @param {data_type} param1 - param1 description.
  * @param {data_type} param2 - param2 description.
