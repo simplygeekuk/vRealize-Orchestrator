@@ -2,6 +2,7 @@
 
 /**
  * Looks up the provided Custom Property and returns its value.
+ * @function getValueFromCustomProperty
  * @param {Properties} vmProperties - The Custom Properties payload.
  * @param {string} customPropertyKey - The Custom Property key to get the value of.
  * @returns {string} Returns the value found for the specified Custom Property.
