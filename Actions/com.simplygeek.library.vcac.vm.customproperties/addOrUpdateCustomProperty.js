@@ -5,6 +5,8 @@
 
 /**
  * Adds a new custom property or updates an existing one.
+ * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
+ * @version 1.0.0
  * @function addOrUpdateCustomProperty
  * @param {vCAC:VCACHOST} vcacHost - The vCAC Host.
  * @param {vCAC:Entity} vcacVmEntity - The vcac virtual machine entity.

@@ -2,6 +2,8 @@
 
 /**
  * Gets the custom properties that are associated with the provided vcac virtual machine.
+ * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
+ * @version 1.0.0
  * @function getCustomProperties
  * @param {vCAC:VCACHOST} vcacHost - The vCAC Host.
  * @param {vCAC:Entity} vcacVmEntity - The vCAC virtual machine entity.
