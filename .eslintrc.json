@@ -1,0 +1,48 @@
+{
+    "env": {
+        "node": true,
+        "es6": false
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readable",
+        "SharedArrayBuffer": "readable"
+    },
+    "parserOptions": {
+        "ecmaVersion": 5,
+        "ecmaFeatures": {
+            "globalReturn": true
+        }
+    },
+    "rules": {
+        "valid-jsdoc": [
+            "error"
+        ],
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-trailing-spaces": [
+            "error"
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 0
+            }
+        ]
+    }
+}
