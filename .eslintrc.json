@@ -20,7 +20,12 @@
         ],
         "indent": [
             "error",
-            4
+            4,
+            {
+                "FunctionExpression": {
+                    "parameters": "first"
+                }
+            }
         ],
         "linebreak-style": [
             "error",
