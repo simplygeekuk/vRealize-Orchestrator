@@ -29,7 +29,7 @@ function Logger(logType, logName) {
         }
     };
     this.debug = function (debugMsg) {
-        System.debug("[" + this.type + ": " + this.name +"] " + debugMsg);
+        System.debug("[" + this.type + ": " + this.name + "] " + debugMsg);
     };
 
 }
