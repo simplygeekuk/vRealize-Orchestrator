@@ -33,7 +33,10 @@ var cpuCount = 0;
 try {
     checkParams(vmProperties);
     log.log("Retrieving " + friendlyLabel + " from custom properties with key: " + customPropertyKey);
-    customPropertyValue = System.getModule("com.vodafone.agilecloud.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties, customPropertyKey);
+    /* eslint-disable indent */
+    customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties,
+                                                                                                                         customPropertyKey);
+    /* eslint-enable indent */
     cpuCount = parseInt(customPropertyValue);
     log.log("Found " + friendlyLabel + ": " + customPropertyValue);
 } catch (e) {

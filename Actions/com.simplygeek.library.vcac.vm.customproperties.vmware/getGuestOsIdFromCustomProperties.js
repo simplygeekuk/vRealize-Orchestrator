@@ -1,12 +1,10 @@
 /*global System Properties vmProperties*/
 
 /**
- * Gets the template name that was used to clone/create the virtual machine.
- * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
- * @function getClonedFromFromCustomProperties
+ * Gets the vCenter guest os identifier for the virtual machine.
+ * @function getGuestOsIdFromCustomProperties
  * @param {Properties} vmProperties - The Custom Properties payload.
- * @returns {string} Returns the template name.
+ * @returns {string} Returns the vCenter guest os id.
  */
 
 function checkParams(vmProperties) {
@@ -22,12 +20,12 @@ function checkParams(vmProperties) {
 }
 
 var logType = "Action";
-var logName = "getClonedFromFromCustomProperties"; // This must be set to the name of the action
+var logName = "getGuestOsIdFromCustomProperties"; // This must be set to the name of the action
 var Logger = System.getModule("com.simplygeek.library.util").logger(logType, logName);
 var log = new Logger(logType, logName);
-var customPropertyKey = "__clonefrom";
+var customPropertyKey = "VMware.VirtualCenter.OperatingSystem";
 var customPropertyValue;
-var friendlyLabel = "Cloned From";
+var friendlyLabel = "vCenter Guest OS Id";
 
 try {
     checkParams(vmProperties);

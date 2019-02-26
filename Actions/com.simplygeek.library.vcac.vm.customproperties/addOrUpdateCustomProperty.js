@@ -60,13 +60,13 @@ var isEncrypted = false;
 try {
     checkParams(vcacHost, vcacVmEntity, customPropertyKey, customPropertyValue);
     log.log("Adding or updating custom property '" + customPropertyKey + "' with value '" + customPropertyValue + "'");
-    if (!propertyIsHidden) {
+    if (propertyIsHidden) {
         isHidden = true;
     }
-    if (!propertyIsRuntime) {
+    if (propertyIsRuntime) {
         isRuntime = true;
     }
-    if (!propertyIsEncrypted) {
+    if (propertyIsEncrypted) {
         isEncrypted = true;
     }
     properties.put("PropertyName", customPropertyKey);
@@ -77,7 +77,7 @@ try {
     links.put("VirtualMachine",vcacVmEntity);
 
     customPropertyEntities = vcacVmEntity.getLink(vcacHost, "VirtualMachineProperties");
-    customPropertyEntitiesFiltered = customPropertyEntities.filter(function(x){return x.getProperty("PropertyName") === customPropertyKey;})[0];
+    customPropertyEntitiesFiltered = customPropertyEntities.filter(function(x){return x.getProperty("PropertyName") === customPropertyKey;});
     if (customPropertyEntitiesFiltered.length > 0) {
         customPropertyEntity = customPropertyEntitiesFiltered[0];
         customPropertyExists = true;
@@ -89,7 +89,11 @@ try {
         if (currentPropertyValue === customPropertyValue) {
             log.log("Custom Property '" + customPropertyKey + "' already set to: '" + customPropertyValue + "', no update required.");
         } else {
-            newOrUpdatedEntity = System.getModule("com.simplygeek.library.vcac.entities").updatevCACEntity(customPropertyEntity, properties, links);
+            /* eslint-disable indent */
+            newOrUpdatedEntity = System.getModule("com.simplygeek.library.vcac.entities").updatevCACEntity(customPropertyEntity,
+                                                                                                           properties,
+                                                                                                           links);
+            /* eslint-enable indent */
             newOrUpdatedPropertyValue = newOrUpdatedEntity.getProperty("PropertyValue");
             if (newOrUpdatedPropertyValue === customPropertyValue) {
                 log.log("Successfully updated '" + customPropertyKey + "' to '" + newOrUpdatedPropertyValue + "'");
@@ -99,7 +103,12 @@ try {
         }
     } else {
         log.log("No existing Custom Property was not found and will be created.");
-        newOrUpdatedEntity = System.getModule("com.vodafone.agilecloud.library.vcac.entities").createvCACEntity(vcacHost, entitySetName, properties, links);
+        /* eslint-disable indent */
+        newOrUpdatedEntity = System.getModule("com.simplygeek.library.vcac.entities").createvCACEntity(vcacHost,
+                                                                                                       entitySetName,
+                                                                                                       properties,
+                                                                                                       links);
+        /* eslint-enable indent */
         newOrUpdatedPropertyValue = newOrUpdatedEntity.getProperty("PropertyValue");
         if (newOrUpdatedPropertyValue === customPropertyValue) {
             log.log("Successfully created '" + customPropertyKey + "' with value '" + newOrUpdatedPropertyValue + "'");

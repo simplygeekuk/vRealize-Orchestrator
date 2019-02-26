@@ -1,12 +1,12 @@
 /*global System Properties vmProperties*/
 
 /**
- * Gets the template name that was used to clone/create the virtual machine.
+ * Gets the total amount of disk used by (allocated to) the virtual machine, in MB.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
  * @version 1.0.0
- * @function getClonedFromFromCustomProperties
+ * @function getTotalDiskUsageFromCustomProperties
  * @param {Properties} vmProperties - The Custom Properties payload.
- * @returns {string} Returns the template name.
+ * @returns {number} Returns the toal disk used by the virtual machine.
  */
 
 function checkParams(vmProperties) {
@@ -22,12 +22,12 @@ function checkParams(vmProperties) {
 }
 
 var logType = "Action";
-var logName = "getClonedFromFromCustomProperties"; // This must be set to the name of the action
+var logName = "getTotalDiskUsageFromCustomProperties"; // This must be set to the name of the action
 var Logger = System.getModule("com.simplygeek.library.util").logger(logType, logName);
 var log = new Logger(logType, logName);
-var customPropertyKey = "__clonefrom";
+var customPropertyKey = "VirtualMachine.Admin.TotalDiskUsage";
 var customPropertyValue;
-var friendlyLabel = "Cloned From";
+var friendlyLabel = "Total Disk Usage";
 
 try {
     checkParams(vmProperties);

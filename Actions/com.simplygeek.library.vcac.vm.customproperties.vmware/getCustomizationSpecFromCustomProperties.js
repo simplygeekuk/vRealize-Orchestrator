@@ -32,7 +32,10 @@ var friendlyLabel = "Customization Spec";
 try {
     checkParams(vmProperties);
     log.log("Retrieving " + friendlyLabel + " from custom properties with key: " + customPropertyKey);
-    customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties, customPropertyKey);
+    /* eslint-disable indent */
+    customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties,
+                                                                                                                         customPropertyKey);
+    /* eslint-enable indent */
     log.log("Found " + friendlyLabel + ": " + customPropertyValue);
 } catch (e) {
     log.error("Action failed to retrieve " + friendlyLabel + " from custom properties.",e);
