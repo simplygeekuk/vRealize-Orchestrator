@@ -39,6 +39,7 @@ try {
     log.debug("Retrieving custom properties for vcac virtual machine.");
     vmPropertiesEntities = vcacVmEntity.getLink(vcacHost, "VirtualMachineProperties");
     log.debug("The following Custom Properties were found:");
+    // eslint-disable-next-line space-infix-ops
     for (var i=0; i<vmPropertiesEntities.length; i++) {
         propertyName = vmPropertiesEntities[i].getProperty("PropertyName");
         propertyValue = vmPropertiesEntities[i].getProperty("PropertyValue");
