@@ -22,9 +22,17 @@
             "error",
             4,
             {
+                "FunctionDeclaration": 
+                {
+                    "parameters": "first"
+                },
                 "FunctionExpression": 
                 {
                     "parameters": "first"
+                },
+                "CallExpression": 
+                {
+                    "arguments": "first"
                 }
             }
         ],
@@ -50,6 +58,19 @@
                 "maxEOF": 0
             }
         ],
+        "space-unary-ops": [
+            2,
+            {
+              "words": true,
+              "nonwords": true,
+              "overrides": {
+                "new": false,
+                "++": false,
+                "!": false,
+                "i=": false
+              }
+            }
+        ],
         "space-infix-ops": [
             "error"
         ],
@@ -61,6 +82,7 @@
             { 
                 "typeof": true 
             }
-        ]
+        ],
+        "eol-last": ["error", "never"]
     }
 }
