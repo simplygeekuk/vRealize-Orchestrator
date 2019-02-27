@@ -3,7 +3,7 @@
 /**
  * Updates the virtual machine component id within a blueprint.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function updateBlueprintComponentIdCustomProperty
  * @param {vCAC:VCACHOST} vcacHost - The vCAC Host.
  * @param {vCAC:Entity} vcacVmEntity - The virtual machine entity.
@@ -38,12 +38,10 @@ var friendlyLabel = "Blueprint Component Id";
 try {
     checkParams(vcacHost, vcacVmEntity, blueprintComponentId);
     log.log("Updating custom property '" + friendlyLabel + "' with key '" + customPropertyKey + "'");
-    /* eslint-disable indent */
     System.getModule("com.simplygeek.library.vcac.vm.customproperties").addOrUpdateCustomProperty(vcacHost,
                                                                                                   vcacVmEntity,
                                                                                                   customPropertyKey,
                                                                                                   blueprintComponentId);
-    /* eslint-enable indent */
     log.log("Successfully updated custom property for: " + friendlyLabel);
 } catch (e) {
     log.error("Action failed to update custom property",e);

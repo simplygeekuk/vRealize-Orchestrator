@@ -3,7 +3,7 @@
 /**
  * Gets the custom properties associated with the virtual machine from the event broker.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getCustomPropertiesFromEbsPayload
  * @param {Properties} ebsPayload - The event broker payload.
  * @returns {Properties} Returns the properties object containing the custom properties.
@@ -35,8 +35,7 @@ try {
     log.debug("Getting VM Custom Properties from EBS Payload");
     vmProperties = ebsPayload.machine.get("properties");
     propertyNames = vmProperties.keys;
-    // eslint-disable-next-line space-infix-ops
-    for (var i=0; i<propertyNames.length; i++) {
+    for (var i = 0; i < propertyNames.length; i++) {
         propertyName = propertyNames[i];
         propertyValue = vmProperties.get(propertyName);
         log.debug("Found property " + propertyName + ": " + propertyValue);

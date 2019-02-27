@@ -3,7 +3,7 @@
 /**
  * Updates the blueprint name that the virtual machine is assigned to.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function updateBlueprintNameCustomProperty
  * @param {vCAC:VCACHOST} vcacHost - The vCAC Host.
  * @param {vCAC:Entity} vcacVmEntity - The virtual machine entity.
@@ -40,7 +40,6 @@ var friendlyLabel = "Blueprint Name";
 try {
     checkParams(vcacHost, vcacVmEntity, blueprintName);
     log.log("Updating custom properties for " + friendlyLabel);
-    /* eslint-disable indent */
     System.getModule("com.simplygeek.library.vcac.vm.customproperties").addOrUpdateCustomProperty(vcacHost,
                                                                                                   vcacVmEntity,
                                                                                                   providerBindingIdKey,
@@ -53,7 +52,6 @@ try {
                                                                                                   vcacVmEntity,
                                                                                                   blueprintNameKey,
                                                                                                   blueprintName);
-    /* eslint-enable indent */
     log.log("Successfully updated custom properties for " + friendlyLabel);
 } catch (e) {
     log.error("Action failed to update custom properties.",e);

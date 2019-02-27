@@ -3,7 +3,7 @@
 /**
  * Gets the custom properties that are associated with the provided vcac virtual machine.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getCustomProperties
  * @param {vCAC:VCACHOST} vcacHost - The vCAC Host.
  * @param {vCAC:Entity} vcacVmEntity - The vCAC virtual machine entity.
@@ -39,8 +39,7 @@ try {
     log.debug("Retrieving custom properties for vcac virtual machine.");
     vmPropertiesEntities = vcacVmEntity.getLink(vcacHost, "VirtualMachineProperties");
     log.debug("The following Custom Properties were found:");
-    // eslint-disable-next-line space-infix-ops
-    for (var i=0; i<vmPropertiesEntities.length; i++) {
+    for (var i = 0; i < vmPropertiesEntities.length; i++) {
         propertyName = vmPropertiesEntities[i].getProperty("PropertyName");
         propertyValue = vmPropertiesEntities[i].getProperty("PropertyValue");
         log.debug(propertyName + ": " + propertyValue);

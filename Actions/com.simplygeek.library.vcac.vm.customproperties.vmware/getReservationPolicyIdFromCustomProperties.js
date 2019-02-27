@@ -3,7 +3,7 @@
 /**
  * Gets the reservation policy id assigned to the virtual machine disks.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getReservationPolicyIdFromCustomProperties
  * @param {Properties} vmProperties - The Custom Properties payload.
  * @returns {string} Returns the reservation policy id.
@@ -32,10 +32,8 @@ var friendlyLabel = "Reservation Policy Id";
 try {
     checkParams(vmProperties);
     log.log("Retrieving " + friendlyLabel + " from custom properties with key: " + customPropertyKey);
-    /* eslint-disable indent */
     customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties,
                                                                                                                          customPropertyKey);
-    /* eslint-enable indent */
     log.log("Found " + friendlyLabel + ": " + customPropertyValue);
 } catch (e) {
     log.error("Action failed to retrieve " + friendlyLabel + " from custom properties.",e);

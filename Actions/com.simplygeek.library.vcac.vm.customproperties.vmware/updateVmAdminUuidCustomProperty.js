@@ -3,7 +3,7 @@
 /**
  * Updates the virtual machine uuid pointer for the virtual machine entity.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function updateVmAdminUuidCustomProperty
  * @param {vCAC:VCACHOST} vcacHost - The vCAC Host.
  * @param {vCAC:Entity} vcacVmEntity - The virtual machine entity.
@@ -38,12 +38,10 @@ var friendlyLabel = "Virtual Machine UUID";
 try {
     checkParams(vcacHost, vcacVmEntity, virtualMachineAdminUuid);
     log.log("Updating custom property '" + friendlyLabel + "' with key '" + customPropertyKey + "'");
-    /* eslint-disable indent */
     System.getModule("com.simplygeek.library.vcac.vm.customproperties").addOrUpdateCustomProperty(vcacHost,
                                                                                                   vcacVmEntity,
                                                                                                   customPropertyKey,
                                                                                                   virtualMachineAdminUuid);
-    /* eslint-enable indent */
     log.log("Successfully updated custom property for: " + friendlyLabel);
 } catch (e) {
     log.error("Action failed to update custom property.",e);

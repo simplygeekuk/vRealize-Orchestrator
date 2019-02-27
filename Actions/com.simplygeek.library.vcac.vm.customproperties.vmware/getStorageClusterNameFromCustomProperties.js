@@ -4,7 +4,7 @@
  * Gets the name of the storage cluster that the primary virtual machine disks are stored on.
  * Note: If the VM is located on a standalone datastore, then use getStorageNameFromCustomProperties instead.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getStorageClusterNameFromCustomProperties
  * @param {Properties} vmProperties - The Custom Properties payload.
  * @returns {string} Returns the storage cluster name.
@@ -33,10 +33,8 @@ var friendlyLabel = "Storage Cluster Name";
 try {
     checkParams(vmProperties);
     log.log("Retrieving " + friendlyLabel + " from custom properties with key: " + customPropertyKey);
-    /* eslint-disable indent */
     customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties,
                                                                                                                          customPropertyKey);
-    /* eslint-enable indent */
     log.log("Found " + friendlyLabel + ": " + customPropertyValue);
 } catch (e) {
     log.error("Action failed to retrieve " + friendlyLabel + " from custom properties.",e);

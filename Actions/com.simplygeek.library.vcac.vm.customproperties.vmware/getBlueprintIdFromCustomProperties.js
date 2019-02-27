@@ -3,7 +3,7 @@
 /**
  * Gets the blueprint id that the virtual machine is assigned to from a custom property.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getBlueprintIdFromCustomProperties
  * @param {Properties} vmProperties - The Custom Properties payload.
  * @returns {string} Returns the blueprint id.
@@ -32,10 +32,8 @@ var friendlyLabel = "Blueprint Id";
 try {
     checkParams(vmProperties);
     log.log("Retrieving " + friendlyLabel + " from custom properties with key: " + customPropertyKey);
-    /* eslint-disable indent */
     customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties,
                                                                                                                          customPropertyKey);
-    /* eslint-enable indent */
     log.log("Found " + friendlyLabel + ": " + customPropertyValue);
 } catch (e) {
     log.error("Action failed to retrieve " + friendlyLabel + " from custom properties.",e);

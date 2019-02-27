@@ -3,7 +3,7 @@
 /**
  * Looks up the number of CPUs assigned to the virtual machine from the custom properties.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getCpuCountFromCustomProperties
  * @param {Properties} vmProperties - The Custom Properties payload.
  * @returns {number} Returns the number of CPUs.
@@ -33,10 +33,8 @@ var cpuCount = 0;
 try {
     checkParams(vmProperties);
     log.log("Retrieving " + friendlyLabel + " from custom properties with key: " + customPropertyKey);
-    /* eslint-disable indent */
     customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties,
                                                                                                                          customPropertyKey);
-    /* eslint-enable indent */
     cpuCount = parseInt(customPropertyValue);
     log.log("Found " + friendlyLabel + ": " + customPropertyValue);
 } catch (e) {

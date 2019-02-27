@@ -6,7 +6,7 @@
 /**
  * Adds a new custom property or updates an existing one.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function addOrUpdateCustomProperty
  * @param {vCAC:VCACHOST} vcacHost - The vCAC Host.
  * @param {vCAC:Entity} vcacVmEntity - The vcac virtual machine entity.
@@ -89,11 +89,9 @@ try {
         if (currentPropertyValue === customPropertyValue) {
             log.log("Custom Property '" + customPropertyKey + "' already set to: '" + customPropertyValue + "', no update required.");
         } else {
-            /* eslint-disable indent */
             newOrUpdatedEntity = System.getModule("com.simplygeek.library.vcac.entities").updatevCACEntity(customPropertyEntity,
                                                                                                            properties,
                                                                                                            links);
-            /* eslint-enable indent */
             newOrUpdatedPropertyValue = newOrUpdatedEntity.getProperty("PropertyValue");
             if (newOrUpdatedPropertyValue === customPropertyValue) {
                 log.log("Successfully updated '" + customPropertyKey + "' to '" + newOrUpdatedPropertyValue + "'");
@@ -103,12 +101,10 @@ try {
         }
     } else {
         log.log("No existing Custom Property was not found and will be created.");
-        /* eslint-disable indent */
         newOrUpdatedEntity = System.getModule("com.simplygeek.library.vcac.entities").createvCACEntity(vcacHost,
                                                                                                        entitySetName,
                                                                                                        properties,
                                                                                                        links);
-        /* eslint-enable indent */
         newOrUpdatedPropertyValue = newOrUpdatedEntity.getProperty("PropertyValue");
         if (newOrUpdatedPropertyValue === customPropertyValue) {
             log.log("Successfully created '" + customPropertyKey + "' with value '" + newOrUpdatedPropertyValue + "'");

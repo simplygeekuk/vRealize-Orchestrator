@@ -3,7 +3,7 @@
 /**
  * Gets the network name for the network adapter index.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getNetworkNameFromCustomProperties
  * @param {Properties} vmProperties - The Custom Properties payload.
  * @param {number} nicIndex - The network adaptor index.
@@ -37,10 +37,8 @@ try {
     checkParams(vmProperties, nicIndex);
     log.log("Retrieving " + friendlyLabel + " from custom properties with key: " + customPropertyKey);
     customPropertyKey = customPropertyKey.replace("##index##", nicIndex.toString());
-    /* eslint-disable indent */
     customPropertyValue = System.getModule("com.simplygeek.library.vcac.vm.customproperties").getValueFromCustomProperty(vmProperties,
                                                                                                                          customPropertyKey);
-    /* eslint-enable indent */
     log.log("Found " + friendlyLabel + ": " + customPropertyValue);
 } catch (e) {
     log.error("Action failed to retrieve " + friendlyLabel + " from custom properties.",e);
