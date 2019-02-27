@@ -22,7 +22,8 @@
             "error",
             4,
             {
-                "FunctionExpression": {
+                "FunctionExpression": 
+                {
                     "parameters": "first"
                 }
             }
