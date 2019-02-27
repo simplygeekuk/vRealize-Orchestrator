@@ -6,7 +6,11 @@
     "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readable",
-        "SharedArrayBuffer": "readable"
+        "SharedArrayBuffer": "readable",
+        "System": "readable",
+        "Server": "readable",
+        "Properties": "readable",
+        "vCACEntityManager": "readable"
     },
     "parserOptions": {
         "ecmaVersion": 5,
