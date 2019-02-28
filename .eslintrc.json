@@ -11,7 +11,8 @@
         "Server": "readable",
         "Properties": "readable",
         "vCACEntityManager": "readable",
-        "VcPlugin": "readable"
+        "VcPlugin": "readable",
+        "LockingSystem": "readable"
     },
     "parserOptions": {
         "ecmaVersion": 5,
