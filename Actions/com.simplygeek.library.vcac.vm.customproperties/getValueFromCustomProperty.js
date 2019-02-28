@@ -3,7 +3,7 @@
 /**
  * Looks up the provided Custom Property and returns its value.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function getValueFromCustomProperty
  * @param {Properties} vmProperties - The Custom Properties payload.
  * @param {string} customPropertyKey - The Custom Property key to get the value of.
