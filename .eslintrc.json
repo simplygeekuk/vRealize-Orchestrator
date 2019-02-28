@@ -10,7 +10,8 @@
         "System": "readable",
         "Server": "readable",
         "Properties": "readable",
-        "vCACEntityManager": "readable"
+        "vCACEntityManager": "readable",
+        "VcPlugin": "readable"
     },
     "parserOptions": {
         "ecmaVersion": 5,
@@ -71,7 +72,7 @@
                 "new": false,
                 "++": false,
                 "!": false,
-                "i=": false
+                "-": false
               }
             }
         ],
