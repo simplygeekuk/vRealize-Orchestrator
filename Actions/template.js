@@ -1,4 +1,4 @@
-/*global System Properties param1, param2, param3*/
+/*global param1 param2 param3*/
 
 /**
  * This is an Action template that can be used as a starting point for creating
