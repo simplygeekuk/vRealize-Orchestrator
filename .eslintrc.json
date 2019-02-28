@@ -5,14 +5,14 @@
     },
     "extends": "eslint:recommended",
     "globals": {
-        "Atomics": "readable",
-        "SharedArrayBuffer": "readable",
-        "System": "readable",
-        "Server": "readable",
-        "Properties": "readable",
-        "vCACEntityManager": "readable",
-        "VcPlugin": "readable",
-        "LockingSystem": "readable"
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "System": "readonly",
+        "Server": "readonly",
+        "Properties": "readonly",
+        "vCACEntityManager": "readonly",
+        "VcPlugin": "readonly",
+        "LockingSystem": "readonly"
     },
     "parserOptions": {
         "ecmaVersion": 5,
