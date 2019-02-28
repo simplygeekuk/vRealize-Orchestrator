@@ -3,7 +3,7 @@
 /**
  * Returns an array of vcac entities by using a property set of key/values to filter the search on.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.2.0
+ * @version 1.1.0
  * @function getVcacEntitiesByCustomFilter
  * @param {vCAC:VCACHost} vcacHost - The vCAC Host.
  * @param {string} entitySetName - The Entity Set Name.
