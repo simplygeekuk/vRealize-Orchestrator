@@ -1,10 +1,8 @@
-/*global System*/
-
 /**
  * This action creates a Logger object that can be used to standardise the log output in workflows.
  * This provides greater visibility into what code is executing and where, which makes troubleshooting easier.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
+ * @version 1.1.0
  * @function logger
  * @param {string} logType - The component type i.e. Action or Workflow.
  * @param {string} logName - The Action or Workflow name.
