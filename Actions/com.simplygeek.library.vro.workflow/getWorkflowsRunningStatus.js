@@ -3,7 +3,7 @@
 /**
  * Checks the running status of Workflow tokens. Returns true if at least one workflow is still running.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.1.0
+ * @version 1.2.0
  * @function getWorkflowsRunningStatus
  * @param {WorkflowToken[]} wfTokens - An Array of Workflow execution tokens.
  * @param {string} itemParam - The parameter that is being executed.
