@@ -12,6 +12,7 @@
 function checkParams(vcacVirtualMachine) {
     var inputErrors = [];
     var errorMessage;
+
     if (!vcacVirtualMachine || System.getObjectType(vcacVirtualMachine) !== "vCAC:VirtualMachine") {
         inputErrors.push(" - vcacVirtualMachine missing or not of type 'vCAC:VirtualMachine'");
     }
@@ -20,6 +21,7 @@ function checkParams(vcacVirtualMachine) {
         log.error(errorMessage);
     }
 }
+
 var logType = "Action";
 var logName = "getVirtualMachineEntityFromVcacVirtualMachine"; // This must be set to the name of the action
 var Logger = System.getModule("com.simplygeek.library.util").logger(logType, logName);

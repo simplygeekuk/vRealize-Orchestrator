@@ -12,6 +12,7 @@
 function checkParams(vcacEntity) {
     var inputErrors = [];
     var errorMessage;
+
     if (!vcacEntity || System.getObjectType(vcacEntity) !== "vCAC:Entity") {
         inputErrors.push(" - vcacEntity missing or not of type 'vCAC:Entity'");
     }
@@ -36,7 +37,6 @@ try {
     } else {
         log.error("No keyString was found.");
     }
-
 } catch (e) {
     log.error("Action failed to get keyString from vCAC Entity.",e);
 }
