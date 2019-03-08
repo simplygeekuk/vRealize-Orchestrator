@@ -3,7 +3,7 @@
 /**
  * Updates the OwnerExists property to true or false for the virtual machine.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.1.0
+ * @version 1.2.0
  * @function updateOwnerExistsForVirtualMachineEntity
  * @param {vCAC:Entity} vcacVmEntity - The vCAC Virtual Machine Entity.
  * @param {boolean} ownerExists - Set OwnerExists to true or false.
@@ -12,10 +12,11 @@
 function checkParams(vcacVmEntity, ownerExists) {
     var inputErrors = [];
     var errorMessage;
+
     if (!vcacVmEntity || System.getObjectType(vcacVmEntity) !== "vCAC:Entity") {
         inputErrors.push(" - vcacVmEntity missing or not of type 'vCAC:Entity'");
     }
-    if ((ownerExists !== true || ownerExists !== false ) || typeof ownerExists !== "boolean") {
+    if (typeof ownerExists !== "boolean") {
         inputErrors.push(" - ownerExists missing or not of type 'boolean'");
     }
     if (inputErrors.length > 0) {
