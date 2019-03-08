@@ -3,24 +3,25 @@
 /**
  * Updates a value of a property on a vcac entity using the value provided.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.1.0
+ * @version 1.2.0
  * @function updatePropertyValueForVcacEntity
  * @param {vCAC:Entity} vcacEntity - The vCAC Entity.
  * @param {string} propertyKey - The property key.
- * @param {string} propertyKey - The property value.
+ * @param {Any} propertyKey - The property value.
  */
 
 function checkParams(vcacEntity, propertyKey, propertyValue) {
     var inputErrors = [];
     var errorMessage;
+
     if (!vcacEntity || System.getObjectType(vcacEntity) !== "vCAC:Entity") {
         inputErrors.push(" - vcacEntity missing or not of type 'vCAC:Entity'");
     }
     if (!propertyKey || typeof propertyKey !== "string") {
         inputErrors.push(" - propertyKey missing or not of type 'string'");
     }
-    if (!propertyValue || typeof propertyValue !== "string") {
-        inputErrors.push(" - propertyValue missing or not of type 'string'");
+    if (!propertyValue && propertyValue !== false) {
+        inputErrors.push(" - propertyValue missing.");
     }
     if (inputErrors.length > 0) {
         errorMessage = "Mandatory parameters not satisfied:\n" + inputErrors.join("\n");
