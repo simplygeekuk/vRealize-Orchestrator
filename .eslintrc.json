@@ -95,8 +95,7 @@
             { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
             { "blankLine": "never",  "prev": ["const", "let", "var"], "next": ["const", "let", "var"]},
             { "blankLine": "always", "prev": "function", "next": "*"},
-            { "blankLine": "always", "prev": "*", "next": "return" },
-            { "blankLine": "always", "prev": "*", "next": "try" }
+            { "blankLine": "always", "prev": "*", "next": "return" }
         ]
     }
 }
