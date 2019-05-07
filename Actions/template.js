@@ -15,6 +15,7 @@
 function checkParams(param_1, param_2, param_3) {
     var inputErrors = [];
     var errorMessage;
+
     if (!param_1 || typeof param_1 !== "string") {
         inputErrors.push(" - param_1 missing or not of type 'string'");
     }

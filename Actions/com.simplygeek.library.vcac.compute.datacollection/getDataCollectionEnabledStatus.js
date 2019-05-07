@@ -14,6 +14,7 @@
 function checkParams(vcacHost, dataCollectionType, dataCollectionEntityId) {
     var inputErrors = [];
     var errorMessage;
+
     if (!vcacHost || System.getObjectType(vcacHost) !== "vCAC:VCACHost") {
         inputErrors.push(" - vcacHost missing or not of type 'vCAC:VCACHost'");
     }
