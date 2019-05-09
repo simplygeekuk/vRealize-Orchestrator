@@ -1,9 +1,9 @@
 /*global System vcacEntity Properties propertyKey propertyValue*/
 
 /**
- * Updates a value of a property on a vcac entity using the value provided.
+ * Updates the value of a property on a vcac entity using the value provided.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.2.1
+ * @version 1.2.3
  * @function updatePropertyValueForVcacEntity
  * @param {vCAC:Entity} vcacEntity - The vCAC Entity.
  * @param {string} propertyKey - The property key.
@@ -38,24 +38,22 @@ var entityLink = new Properties();
 var updatedEntity;
 var currentPropertyValue = "";
 var updatedPropertyValue = "";
-var vcacEntityName = "";
 
 try {
     checkParams(vcacEntity, propertyKey, propertyValue);
-    vcacEntityName = vcacEntity.getInventoryObject().displayName;
-    log.debug("Attempting to update '" + propertyKey + "' on vcac entity '" + vcacEntityName + "' to '" + propertyValue + "'");
+    log.debug("Attempting to update '" + propertyKey + "' on vcac entity to '" + propertyValue + "'");
     currentPropertyValue = vcacEntity.getProperty(propertyKey);
     if (currentPropertyValue === propertyValue) {
         log.debug("Property '" + propertyKey + "' already set to '" + propertyValue + "', no update required.");
     } else {
-        log.debug("Updating '" + propertyKey + "' on vcac entity: " + vcacEntityName);
+        log.debug("Updating '" + propertyKey + "' on vcac entity.");
         entityProperties.put(propertyKey, propertyValue);
         updatedEntity = System.getModule("com.simplygeek.library.vcac.entities").updatevCACEntity(vcacEntity, entityProperties, entityLink);
         updatedPropertyValue = updatedEntity.getProperty(propertyKey);
         if (updatedPropertyValue === propertyValue) {
-            log.debug("Successfully updated '" + propertyKey + "' on vcac entity '" + vcacEntityName + "' to '" + updatedPropertyValue + "'");
+            log.debug("Successfully updated '" + propertyKey + "' on vcac entity to '" + updatedPropertyValue + "'");
         } else {
-            log.error("Failed to update '" + propertyKey + "' on vcac entity '" + vcacEntityName + "'");
+            log.error("Failed to update '" + propertyKey + "' on vcac entity.");
         }
     }
 } catch (e) {
