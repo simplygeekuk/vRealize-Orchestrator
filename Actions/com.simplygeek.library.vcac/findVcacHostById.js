@@ -12,6 +12,7 @@
 function checkParams(hostId) {
     var inputErrors = [];
     var errorMessage;
+
     if (!hostId || typeof hostId !== "string") {
         inputErrors.push(" - hostId missing or not of type 'string'");
     }
