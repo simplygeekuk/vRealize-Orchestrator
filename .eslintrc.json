@@ -96,6 +96,9 @@
             { "blankLine": "never",  "prev": ["const", "let", "var"], "next": ["const", "let", "var"]},
             { "blankLine": "always", "prev": "function", "next": "*"},
             { "blankLine": "always", "prev": "*", "next": "return" }
+        ],
+        "no-caller": [
+            "error"
         ]
     }
 }
