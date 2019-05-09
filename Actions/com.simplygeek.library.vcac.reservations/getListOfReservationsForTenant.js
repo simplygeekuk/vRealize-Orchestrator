@@ -45,9 +45,9 @@ try {
     if (!enabledOnly) {
         enabledReservations = false;
     }
-    query = "ProvisioningGroup/TenantID eq '" + tenantId.toLowerCase();
+    query = "ProvisioningGroup/TenantID eq '" + tenantId.toLowerCase() + "'";
     if (enabledReservations) {
-        query += "' and Enabled eq " + enabledReservations;
+        query += " and Enabled eq " + enabledReservations;
     }
     reservationEntities = System.getModule("com.simplygeek.library.vcac.entities").getVcacEntitiesBySystemQuery(vcacHost,
                                                                                                                 entitySetName,
