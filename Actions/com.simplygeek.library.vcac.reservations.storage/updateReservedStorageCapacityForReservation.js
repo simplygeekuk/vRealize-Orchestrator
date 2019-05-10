@@ -1,4 +1,4 @@
-/*global System vcacHost reservationEntity storagePath newReservedCapacity*/
+/*global vcacHost reservationEntity storagePath newReservedCapacity*/
 
 /**
  * Updates the reserved storage capacity for the storage path in the reservation.

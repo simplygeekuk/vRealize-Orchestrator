@@ -1,4 +1,4 @@
-/*global System vcacHost reservationEntity storagePath*/
+/*global vcacHost reservationEntity storagePath*/
 
 /**
  * Gets the total physical storage capacity for the storage path in the reservation.
