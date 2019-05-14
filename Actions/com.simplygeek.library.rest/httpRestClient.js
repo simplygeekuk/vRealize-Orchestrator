@@ -76,9 +76,7 @@ function checkParams(resthost, restmethod, resturi) {
     }
 }
 
-var logFunction = System.getModule("com.vodafone.agilecloud.library.util").standardisedLogging;
-var logElementType = "Action";
-var logElementName = "executeRestRequest"; // This must be set to the name of the action
+
 var request = ""; //REST request object
 var response = ""; //REST API request result
 var responseContent = "";
