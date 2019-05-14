@@ -17,10 +17,13 @@
  * @returns {*} The HttpClient object.
  */
 
+var logType = "Action";
+var logName = "httpRestClient"; // This must be set to the name of the action
+var Logger = System.getModule("com.simplygeek.library.util").logger(logType, logName);
+var log = new Logger(logType, logName);
 var request = ""; //REST request object
 var response = ""; //REST API request response
 var responseContent = "";
-
 var requestUrl = "";
 var statusCode;
 
@@ -33,57 +36,54 @@ function HttpClient(restHost, acceptType) {
         this.acceptType = "application/json";
     }
 
-    this.get = function (restUri, expectedResponseCodes, headers) {
-        System.log("[" + this.type + ": " + this.name + "] " + logMsg);
+    this.get = function (restUri, headers, expectedResponseCodes) {
+        response = _executeRequest(this.restHost, "GET", restUri, headers, expectedResponseCodes);
     };
     this.post = function (restUri, contentType, content, expectedResponseCodes, headers) {
-        System.warn("[" + this.type + ": " + this.name + "] " + warnMsg);
+        response = _executeRequest();
     };
     this.put = function (restUri, contentType, content, expectedResponseCodes, headers) {
-        System.warn("[" + this.type + ": " + this.name + "] " + warnMsg);
+        response = _executeRequest();
     };
     this.delete = function (restUri, contentType, content, expectedResponseCodes, headers) {
-        System.warn("[" + this.type + ": " + this.name + "] " + warnMsg);
+        response = _executeRequest();
     };
     this.patch = function (restUri, contentType, content, expectedResponseCodes, headers) {
-        System.warn("[" + this.type + ": " + this.name + "] " + warnMsg);
+        response = _executeRequest();
     };
 
-    function _executeRequest(restHost, restUri, restMethod, acceptType,
-                             contentType, content, expectedResponseCodes, headers) {
-        if ((restMethod === "PUT" || 
-             restMethod === "POST" || 
-             restMethod === "DELETE" ||
-             restMethod === "PATCH") && 
-             !contentType) {
-             contentType = "application/json";
+    function _executeRequest(restUri, restMethod, contentType,
+                             content, headers, expectedResponseCodes) {
+        log.log("Creating REST request...");
+
+        if (restMethod === "GET") {
+            this.request = this.restHost.createRequest(restMethod, restUri);
+        } else {
+            this.request = this.restHost.createRequest(restMethod, restUri, content);
+            if (!contentType) {
+                contentType = this.acceptType;
+            }
+            this.request.contentType = contentType;
+        }
+
+        this.request.setHeader("Accept", this.acceptType);
+
+
+
+    }
+
+    function _setHeaders() {
+        for (var headerKey in headers.keys) {
+            var headerValue = headers.get(headerKey);
+            // eslint-disable-next-line padding-line-between-statements
+            log.debug("Adding Header: " + headerKey + ": " + headerValue);
+            this.request.setHeader(headerKey, headerValue);
         }
     }
 
 }
 
-
-
-function checkParams(resthost, restmethod, resturi) {
-    if (!resthost) {
-    	throw "The REST host must be provided.";
-    }
-    if (!restmethod) {
-    	throw "The REST method must be provided.";
-    }
-    if (!resturi) {
-    	throw "The REST URI must be provided.";
-    }
-}
-
-
-var request = ""; //REST request object
-var response = ""; //REST API request result
-var responseContent = "";
-var defaultAcceptType = "application/json";
-var defaultContentType = "application/json";
-var requestUrl = "";
-var statusCode;
+return HttpClient;
 
 try {
     checkParams(restHost, restMethod, restUri);
@@ -106,39 +106,31 @@ try {
         request = restHost.createRequest(restMethod, restUri);
     }
 
-	//Build up the Session Header information
-	if (!acceptType) {
-	    acceptType = defaultAcceptType;
-	}
-	request.setHeader("Accept", acceptType);
-	logFunction(logElementType,logElementName,"debug","REST Accept: " + acceptType);
+    //Build up the Session Header information
+    if (!acceptType) {
+        acceptType = defaultAcceptType;
+    }
+    request.setHeader("Accept", acceptType);
+    logFunction(logElementType,logElementName,"debug","REST Accept: " + acceptType);
 
-	if (headers) {
-	    for each (var headerKey in headers.keys) {
-	        headerValue = headers.get(headerKey);
-	        logFunction(logElementType,logElementName,"debug","REST Header: " + headerKey + ":" + headerValue);
-	        request.setHeader(headerKey, headerValue);
-	    }
-	}
-
-	requestUrl = request.fullUrl;
+    requestUrl = request.fullUrl;
     logFunction(logElementType,logElementName,"debug","REST URL: " + requestUrl);
 
-	// Execute REST call
-	logFunction(logElementType,logElementName,"debug","Executing '" + restMethod + "' on " + requestUrl);
-	response = request.execute();
-	statusCode = response.statusCode;
-	responseContent = response.contentAsString;
+    // Execute REST call
+    logFunction(logElementType,logElementName,"debug","Executing '" + restMethod + "' on " + requestUrl);
+    response = request.execute();
+    statusCode = response.statusCode;
+    responseContent = response.contentAsString;
 
-	// for debug only - can be noisy.
-	//logFunction(logElementType,logElementName,"debug","Request response: " + responseContent);
+    // for debug only - can be noisy.
+    //logFunction(logElementType,logElementName,"debug","Request response: " + responseContent);
 
-	// Check response status code
-	if (!expectedResponseCode) {
+    // Check response status code
+    if (!expectedResponseCode) {
         expectedResponseCode = 200;
-	}
-	if (statusCode === expectedResponseCode) {
-	    logFunction(logElementType,logElementName,"debug","REST request executed successfully with status: " + statusCode);
+    }
+    if (statusCode === expectedResponseCode) {
+        logFunction(logElementType,logElementName,"debug","REST request executed successfully with status: " + statusCode);
     } else {
         throw "Incorrect response code received from REST host: '" + statusCode + "' expected: '" + expectedResponseCode + "'\n" + responseContent;
     }
