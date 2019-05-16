@@ -1,11 +1,9 @@
 /**
  * Creates and returns an instance of the HttpClient object.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 0.0.7
+ * @version 1.0.0
  * @function httpClient
- * @param {REST:RESTHost} restHost - The HTTP REST host.
- * @param {string} [acceptType] - The encoding to accept.
- * @returns {*} The HttpClient object.
+ * @returns {*} An instance of the HttpClient object.
  */
 
 var logType = "Action";
@@ -13,7 +11,6 @@ var logName = "httpClient"; // This must be set to the name of the action
 var Logger = System.getModule("com.simplygeek.library.util").logger(logType, logName);
 var log = new Logger(logType, logName);
 var reqResponse = ""; //REST API request response
-var statusCode;
 
 /**
  * Defines the HttpClient object.
@@ -36,14 +33,14 @@ function HttpClient(restHost, acceptType) {
      * Defines the GET method.
      * @method
      * @param {string} restUri - The request uri.
-     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @param {number[]} [expectedResponseCodes] - A list of expected response codes.
+     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @returns {*} The request response object.
      */
 
-    this.get = function (restUri, headers, expectedResponseCodes) {
+    this.get = function (restUri, expectedResponseCodes, headers) {
         reqResponse = this._executeRequest("GET", restUri, null, null,
-                                           headers, expectedResponseCodes);
+                                           expectedResponseCodes, headers);
 
         return reqResponse;
     };
@@ -52,21 +49,21 @@ function HttpClient(restHost, acceptType) {
      * Defines the POST method.
      * @method
      * @param {string} restUri - The request uri.
-     * @param {string} content - The request content.
+     * @param {string} [content] - The request content.
      * @param {string} [contentType] - The encoding for content.
-     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @param {number[]} [expectedResponseCodes] - A list of expected response codes.
+     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @returns {*} The request response object.
      */
 
     this.post = function (restUri, content, contentType,
-                          headers, expectedResponseCodes) {
+                          expectedResponseCodes, headers) {
         if (!content) {
             content = "{}";
         }
         reqResponse = this._executeRequest("POST", restUri, content,
-                                           contentType, headers,
-                                           expectedResponseCodes);
+                                           contentType, expectedResponseCodes,
+                                           headers);
 
         return reqResponse;
     };
@@ -77,16 +74,16 @@ function HttpClient(restHost, acceptType) {
      * @param {string} restUri - The request uri.
      * @param {string} content - The request content.
      * @param {string} [contentType] - The encoding for content.
-     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @param {number[]} [expectedResponseCodes] - A list of expected response codes.
+     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @returns {*} The request response object.
      */
 
     this.put = function (restUri, content, contentType,
-                         headers, expectedResponseCodes) {
+                         expectedResponseCodes, headers) {
         reqResponse = this._executeRequest("PUT", restUri, content,
-                                           contentType, headers,
-                                           expectedResponseCodes);
+                                           contentType, expectedResponseCodes,
+                                           headers);
 
         return reqResponse;
     };
@@ -97,16 +94,16 @@ function HttpClient(restHost, acceptType) {
      * @param {string} restUri - The request uri.
      * @param {string} content - The request content.
      * @param {string} [contentType] - The encoding for content.
-     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @param {number[]} [expectedResponseCodes] - A list of expected response codes.
+     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @returns {*} The request response object.
      */
 
     this.delete = function (restUri, content, contentType,
-                            headers, expectedResponseCodes) {
+                            expectedResponseCodes, headers) {
         reqResponse = this._executeRequest("DELETE", restUri, content,
-                                           contentType, headers,
-                                           expectedResponseCodes);
+                                           contentType, expectedResponseCodes,
+                                           headers);
 
         return reqResponse;
     };
@@ -117,16 +114,16 @@ function HttpClient(restHost, acceptType) {
      * @param {string} restUri - The request uri.
      * @param {string} content - The request content.
      * @param {string} [contentType] - The encoding for content.
-     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @param {number[]} [expectedResponseCodes] - A list of expected response codes.
+     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @returns {*} The request response object.
      */
 
     this.patch = function (restUri, content, contentType,
-                           headers, expectedResponseCodes) {
+                           expectedResponseCodes, headers) {
         reqResponse = this._executeRequest("PATCH", restUri, content,
-                                           contentType, headers,
-                                           expectedResponseCodes);
+                                           contentType, expectedResponseCodes,
+                                           headers);
 
         return reqResponse;
     };
@@ -139,30 +136,32 @@ function HttpClient(restHost, acceptType) {
      * @param {string} restUri - The request uri.
      * @param {string} content - The request content.
      * @param {string} [contentType] - The encoding for content.
-     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @param {number[]} [expectedResponseCodes] - A list of expected response codes.
+     * @param {Properties} [headers] - A key/value set of headers to include in the request.
      * @returns {*} The request response object.
      */
 
     this._executeRequest = function (restMethod, restUri, content,
-                                     contentType, headers,
-                                     expectedResponseCodes) {
+                                     contentType, expectedResponseCodes,
+                                     headers) {
         var response;
         var maxAttempts = 5;
-        var timeout = 5;
+        var timeout = 10;
         var success = false;
+        var statusCode;
 
+        // Default to status code '200' if no expected codes have been defined.
         if (!expectedResponseCodes ||
-            (Array.isArray(expectedResponseCodes) && expectedResponseCodes.length < 1)) {
+            (Array.isArray(expectedResponseCodes) &&
+            expectedResponseCodes.length < 1)) {
             expectedResponseCodes = [200];
         }
-        log.log("_executeRequest: " + this.restHost);
         this._createRequest(restMethod, restUri, content,
                             contentType, headers);
 
-        log.log("Executing request...");
-        log.log("URL: " + this.request.fullUrl);
-        log.log("Method: " + restMethod);
+        log.debug("Executing request...");
+        log.debug("URL: " + this.request.fullUrl);
+        log.debug("Method: " + restMethod);
 
         for (var i = 0; i < maxAttempts; i++) {
             try {
@@ -171,21 +170,24 @@ function HttpClient(restHost, acceptType) {
                 break;
             } catch (e) {
                 System.sleep(timeout * 1000);
-                log.warn("Connection failed: " + e + " retrying...");
+                log.warn("Request failed: " + e + " retrying...");
                 continue;
             }
         }
 
         if (!success) {
-            log.error("Connection failed after " + maxAttempts + " attempts. Aborting.");
+            log.error("Request failed after " + maxAttempts.toString +
+                      " attempts. Aborting.");
         }
 
         statusCode = response.statusCode;
         if (expectedResponseCodes.indexOf(statusCode) > -1) {
-            log.log("Request executed successfully with status: " + statusCode);
+            log.debug("Request executed successfully with status: " +
+                      statusCode);
         } else {
             log.error("Request failed, incorrect response code received: '" +
-                      statusCode + "' expected one of: '" + expectedResponseCodes.join(",") +
+                      statusCode + "' expected one of: '" +
+                      expectedResponseCodes.join(",") +
                       "'\n" + response.contentAsString);
         }
 
@@ -208,7 +210,7 @@ function HttpClient(restHost, acceptType) {
                                     contentType, headers) {
         var uri = encodeURI(restUri);
 
-        log.log("Creating REST request...");
+        log.debug("Creating REST request...");
         if (restMethod === "GET") {
             this.request = this.restHost.createRequest(restMethod, uri);
         } else {
@@ -223,7 +225,7 @@ function HttpClient(restHost, acceptType) {
             }
         }
 
-        log.log("Setting headers...");
+        log.debug("Setting headers...");
         this._setHeaders(headers);
     };
 
