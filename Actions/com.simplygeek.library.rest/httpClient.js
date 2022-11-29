@@ -1,26 +1,26 @@
 /**
- * Creates and returns an instance of the HttpClient object.
+ * Creates and returns an instance of the httpRestClient object.
  * @author Gavin Stephens <gavin.stephens@simplygeek.co.uk>
- * @version 1.0.0
- * @function httpClient
- * @returns {*} An instance of the HttpClient object.
+ * @version 1.0.1
+ * @function httpRestClient
+ * @returns {*} An instance of the httpRestClient object.
  */
 
 var logType = "Action";
-var logName = "httpClient"; // This must be set to the name of the action
+var logName = "httpRestClient"; // This must be set to the name of the action
 var Logger = System.getModule("com.simplygeek.library.util").logger(logType, logName);
 var log = new Logger(logType, logName);
 var reqResponse = ""; //REST API request response
 
 /**
- * Defines the HttpClient object.
+ * Defines the httpRestClient object.
  * @class
  * @param {REST:RESTHost} restHost - The HTTP REST host.
  * @param {string} [acceptType] - The encoding format to accept.
- * @returns {*} An instance of the HttpClient object.
+ * @returns {*} An instance of the httpRestClient object.
  */
 
-function HttpClient(restHost, acceptType) {
+function httpRestClient(restHost, acceptType) {
     this.restHost = restHost;
 
     if (acceptType) {
@@ -176,7 +176,7 @@ function HttpClient(restHost, acceptType) {
         }
 
         if (!success) {
-            log.error("Request failed after " + maxAttempts.toString +
+            log.error("Request failed after " + maxAttempts.toString() +
                       " attempts. Aborting.");
         }
 
@@ -208,7 +208,12 @@ function HttpClient(restHost, acceptType) {
 
     this._createRequest = function (restMethod, restUri, content,
                                     contentType, headers) {
-        var uri = encodeURI(restUri);
+        if (restUri.indexOf('%') > -1) {
+            log.log("Possible encoding detected in URI, encoder will not be used.");
+            var uri = restUri;
+        } else {
+            var uri = encodeURI(restUri);
+        }
 
         log.debug("Creating REST request...");
         if (restMethod === "GET") {
@@ -240,7 +245,7 @@ function HttpClient(restHost, acceptType) {
         log.debug("Adding Header: Accept: " + this.acceptType);
         this.request.setHeader("Accept", this.acceptType);
         if (headers && (headers instanceof Properties)) {
-            for (var headerKey in headers.keys) {
+            for each (var headerKey in headers.keys) {
                 var headerValue = headers.get(headerKey);
                 // eslint-disable-next-line padding-line-between-statements
                 log.debug("Adding Header: " + headerKey + ": " + headerValue);
@@ -251,4 +256,4 @@ function HttpClient(restHost, acceptType) {
 
 }
 
-return HttpClient;
+return httpRestClient;
