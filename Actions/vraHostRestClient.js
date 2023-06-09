@@ -1,11 +1,11 @@
 /**
- * Defines the VaHostRestClient object.
+ * Defines the VraHostRestClient object.
  * @class
  * @param {REST:RESTHost} vraHost - The HTTP REST host.
- * @returns {*} Returns an instance of the VaHostRestClient object.
+ * @returns {*} Returns an instance of the VraHostRestClient object.
  */
 
-function VaHostRestClient(vraHost) {
+function VraHostRestClient(vraHost) {
     this.vraHost = vraHost;
 
     /**
@@ -244,4 +244,4 @@ function VaHostRestClient(vraHost) {
     };
 }
 
-return VaHostRestClient;
+return VraHostRestClient;
