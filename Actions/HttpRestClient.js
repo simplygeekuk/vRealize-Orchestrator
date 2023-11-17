@@ -11,11 +11,6 @@ function HttpRestClient(restHost) {
         throw "restHost is required and must be of type 'REST:RESTHost'";
     }
 
-    // var logType = "Action";
-    // var logName = "HttpRestClient";
-    // this.logger = new (System.getModule("com.vattenfall.library.logger.utils").loggerService())(logType,
-    //                                                                                             logName);
-
     this.restHost = restHost;
 
     /**
