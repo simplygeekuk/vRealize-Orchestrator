@@ -9,8 +9,8 @@ function ResourceElementService() {
 
     var logType = "Action";
     var logName = "ResourceElementService";
-    this.logger = new (System.getModule("com.vattenfall.library.logger.utils").loggerService())(logType,
-                                                                                                logName);
+    this.logger = new (System.getModule("com.simplygeek.logger").loggerService())(logType,
+                                                                                  logName);
 
     /**
      * Defines the getResourceElement method.
